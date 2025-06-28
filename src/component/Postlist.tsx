@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 
 //SSRでデータを取得するための関数
 const getPosts = async (): Promise<PostContent[]> => {
+  console.log("NEXT_PUBLIC_API_URL:", process.env.NEXT_PUBLIC_API_URL);
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
     if (!res.ok) {
