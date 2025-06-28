@@ -6,7 +6,9 @@ import Sidebar from "./Sidebar";
 const getPosts = async (): Promise<PostContent[]> => {
   console.log("NEXT_PUBLIC_API_URL:", process.env.NEXT_PUBLIC_API_URL);
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
+      cache: "no-store",
+    });
     if (!res.ok) {
       throw new Error("Failed to fetch posts");
     }
