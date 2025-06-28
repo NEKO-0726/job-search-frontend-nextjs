@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import apiClient from "../../lib/apiClient";
+// import apiClient from "../../lib/apiClient";
 import { useRouter } from "next/navigation";
 
 const jobCategories: string[] = [
@@ -35,15 +35,37 @@ const Page = () => {
       return;
     }
 
+    // try {
+    //   await apiClient.post("/post", {
+    //     salary: salaryText,
+    //     title: titleText,
+    //     jobCategory: jobCategoryText,
+    //   });
+    // } catch (error) {
+    //   console.error("Error posting job:", error);
+    //   alert("求人の投稿中にエラーが発生しました。");
+    // }
+
     try {
-      await apiClient.post("/post", {
-        salary: salaryText,
-        title: titleText,
-        jobCategory: jobCategoryText,
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          salary: salaryText,
+          title: titleText,
+          jobCategory: jobCategoryText,
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error("投稿に失敗しました");
+      }
     } catch (error) {
       console.error("Error posting job:", error);
       alert("求人の投稿中にエラーが発生しました。");
+      return;
     }
 
     setSalaryText("");

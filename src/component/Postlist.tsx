@@ -1,15 +1,19 @@
 import { PostContent } from "@/types";
 import Post from "./Post";
 import Sidebar from "./Sidebar";
-import apiClient from "@/lib/apiClient";
 
 //SSRでデータを取得するための関数
 const getPosts = async (): Promise<PostContent[]> => {
   try {
-    const res = await apiClient.get<PostContent[]>("/posts");
-    return res.data;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+
+    const data: PostContent[] = await res.json();
+    return data;
   } catch (error) {
-    console.error("Error fetching posts with apiClient:", error);
+    console.error("Error fetching posts with fetch:", error);
     throw new Error("Failed to fetch posts");
   }
 };

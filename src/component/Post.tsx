@@ -1,5 +1,4 @@
 "use client";
-import apiClient from "@/lib/apiClient";
 import { PostContent } from "@/types";
 import React, { useEffect, useState } from "react";
 
@@ -24,14 +23,15 @@ const Post = ({ initialPosts }: Props) => {
   const tasksPerPage = 10;
 
   useEffect(() => {
-    // APIから求人情報を取得
-    // 初期値としてSSRで取得したデータを受け取り、状態を更新する
-    // 再レンダリングを行う
-    // これにより、クライアントサイドでのデータ取得と状態管理を行うことができる
     const fetchPosts = async () => {
       try {
-        const response = await apiClient.get<PostContent[]>("/posts");
-        setPosts(response.data);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`
+        );
+        if (!res.ok) throw new Error("Failed to fetch posts");
+
+        const data = await res.json();
+        setPosts(data);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
