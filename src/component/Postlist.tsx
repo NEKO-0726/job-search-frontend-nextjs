@@ -2,6 +2,8 @@ import { PostContent } from "@/types";
 import Post from "./Post";
 import Sidebar from "./Sidebar";
 
+export const dynamic = "force-dynamic";
+
 //SSRでデータを取得するための関数
 const getPosts = async (): Promise<PostContent[]> => {
   console.log("NEXT_PUBLIC_API_URL:", process.env.NEXT_PUBLIC_API_URL);
