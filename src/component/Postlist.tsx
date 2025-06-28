@@ -6,7 +6,7 @@ import apiClient from "@/lib/apiClient";
 //SSRでデータを取得するための関数
 const getPosts = async (): Promise<PostContent[]> => {
   try {
-    const res = await apiClient.get<PostContent[]>("/getAllPosts");
+    const res = await apiClient.get<PostContent[]>("/posts");
     return res.data;
   } catch (error) {
     console.error("Error fetching posts with apiClient:", error);

@@ -30,7 +30,7 @@ const Post = ({ initialPosts }: Props) => {
     // これにより、クライアントサイドでのデータ取得と状態管理を行うことができる
     const fetchPosts = async () => {
       try {
-        const response = await apiClient.get<PostContent[]>("/getAllPosts");
+        const response = await apiClient.get<PostContent[]>("/posts");
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
