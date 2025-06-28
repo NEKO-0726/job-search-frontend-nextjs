@@ -25,9 +25,7 @@ const Post = ({ initialPosts }: Props) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
         if (!res.ok) throw new Error("Failed to fetch posts");
 
         const data = await res.json();
