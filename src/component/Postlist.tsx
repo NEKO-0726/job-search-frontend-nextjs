@@ -26,7 +26,7 @@ type Props = {
   initialPosts: PostContent[];
 };
 
-const PostList = async ({ initialPosts }: Props) => {
+const PostList = ({ initialPosts }: Props) => {
   return (
     <div className="flex">
       <Sidebar />

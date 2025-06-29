@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+// このページは常にサーバーサイドでレンダリングされる
 import PostList from "@/component/Postlist";
 import { getPosts } from "@/lib/post";
 
