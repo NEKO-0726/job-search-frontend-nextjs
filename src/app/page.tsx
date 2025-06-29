@@ -1,11 +1,11 @@
 import PostList from "@/component/Postlist";
-
-export const dynamic = "force-dynamic";
+import { getPosts } from "@/lib/post";
 
 export default async function Home() {
+  const posts = await getPosts(); // SSRでデータ取得
   return (
     <>
-      <PostList />
+      <PostList initialPosts={posts} />
     </>
   );
 }
