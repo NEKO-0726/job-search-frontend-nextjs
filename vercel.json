@@ -1,3 +1,7 @@
 {
-  "regions": ["hnd1"]
+  "functions": {
+    "app/api/**/route.ts": {
+      "regions": ["hnd1"]
+    }
+  }
 }
