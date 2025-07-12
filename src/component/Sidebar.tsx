@@ -78,7 +78,7 @@ const Sidebar = () => {
         </div>
 
         <h2 className="pt-5 text-2xl font-semibold mb-2">年収</h2>
-        <div className="w-[160px]">
+        <div className="w-[160px] sm:w-[200px]">
           <select
             className="w-full p-2 border border-gray-400 rounded"
             value={selectedSalary}
