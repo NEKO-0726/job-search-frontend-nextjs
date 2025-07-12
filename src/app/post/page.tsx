@@ -102,7 +102,7 @@ const Page = () => {
 
       <p className="pt-2 pb-2">求人タイトル</p>
       <input
-        className="w-[500px] h-[30px] px-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full max-w-md h-[30px] px-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
         onChange={(e) => setTitleText(e.target.value)}
         value={titleText}
       />
