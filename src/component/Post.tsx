@@ -97,14 +97,14 @@ const Post = ({ initialPosts }: Props) => {
 
   return (
     <>
-      <main className="w-full max-w-[600px] px-5">
+      <main className="w-full max-w-[600px] px-1 sm:px-5">
         <h2 className="pt-5 text-2xl font-semibold">求人一覧</h2>
 
         <p className="pt-2 pb-2">該当件数: {filteredPosts.length} 件</p>
         {currentPosts.map((post) => (
           <div
             key={post.id}
-            className="border rounded-[5px] mb-5 px-5 pb-7 border-gray-300"
+            className="border rounded-[5px] mb-3 sm:mb-5 px-1 sm:px-5 pb-3 sm:pb-6 border-gray-300"
           >
             <h2 className="font-bold text-xl pt-2">{post.title}</h2>
             <p>カテゴリ：{post.jobCategory}</p>

@@ -60,7 +60,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="bg-gray-300 w-[190px] sm:w-[230px] mt-0 px-3 min-h-screen">
+      <aside className="bg-gray-300 w-[190px] sm:w-[230px] mt-0 px-1 sm:px-3 min-h-screen">
         <h2 className="pt-5 text-2xl font-semibold mb-2">求人カテゴリ</h2>
 
         <div className="flex flex-col mb-4">
