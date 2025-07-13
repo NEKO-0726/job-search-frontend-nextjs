@@ -70,6 +70,7 @@ const Sidebar = () => {
                 type="checkbox"
                 checked={selectedJobCategories.includes(category)}
                 onChange={() => handleCheckboxChange(category)}
+                className="cursor-pointer"
               />
               {category}
               <br />
@@ -80,7 +81,7 @@ const Sidebar = () => {
         <h2 className="pt-5 text-2xl font-semibold mb-2">年収</h2>
         <div className="w-[160px] sm:w-[200px]">
           <select
-            className="w-full p-2 border border-gray-400 rounded"
+            className="w-full p-2 border border-gray-400 rounded cursor-pointer"
             value={selectedSalary}
             onChange={(e) => setSelectedSalary(e.target.value)}
           >
