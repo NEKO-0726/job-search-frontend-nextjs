@@ -97,7 +97,7 @@ const Post = ({ initialPosts }: Props) => {
 
   return (
     <>
-      <main className="w-full max-w-[600px] px-2 sm:px-5">
+      <main className="w-full px-2 sm:px-5">
         <h2 className="pt-5 text-2xl font-semibold">求人一覧</h2>
 
         <p className="pt-2 pb-2">該当件数: {filteredPosts.length} 件</p>
