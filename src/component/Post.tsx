@@ -76,7 +76,8 @@ const Post = ({ initialPosts }: Props) => {
     const matchCategory =
       selectedJobCategories.length === 0 ||
       selectedJobCategories.includes(post.jobCategory);
-    const matchSalary = selectedSalary === "" || post.salary >= selectedSalary;
+    const matchSalary =
+      selectedSalary === "" || Number(post.salary) >= Number(selectedSalary);
     return matchCategory && matchSalary;
   });
 
