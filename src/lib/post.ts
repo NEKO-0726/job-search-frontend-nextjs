@@ -1,11 +1,15 @@
-import { prisma } from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { PostContent } from "@/types";
 
 export const getPosts = async (): Promise<PostContent[]> => {
-  try {
-    return await prisma.post.findMany({ orderBy: { id: "desc" } });
-  } catch (error) {
-    console.error("DB fetch error:", error);
-    return []; // DBが落ちていても空配列で継続
+  const { data, error } = await supabaseAdmin
+    .from<"posts", PostContent>("posts")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error("Supabase fetch error:", error);
+    return [];
   }
+  return data || [];
 };
