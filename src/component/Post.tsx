@@ -11,7 +11,9 @@ type Props = {
 //useEffectを使ってクライアントサイドでデータを取得し、
 //状態を更新することで再レンダリングを行う
 const Post = ({ initialPosts }: Props) => {
-  const [posts, setPosts] = useState<PostContent[]>(initialPosts);
+  // const [posts, setPosts] = useState<PostContent[]>(initialPosts);
+
+  const posts = initialPosts; // SSRで取得したデータをそのまま使用
 
   const [selectedJobCategories, setSelectedJobCategories] = useState<string[]>(
     []
@@ -22,20 +24,20 @@ const Post = ({ initialPosts }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const tasksPerPage = 10;
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("/api/posts");
-        if (!res.ok) throw new Error("Failed to fetch posts");
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const res = await fetch("/api/posts");
+  //       if (!res.ok) throw new Error("Failed to fetch posts");
 
-        const data = await res.json();
-        setPosts(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-    fetchPosts();
-  }, []);
+  //       const data = await res.json();
+  //       setPosts(data);
+  //     } catch (error) {
+  //       console.error("Error fetching posts:", error);
+  //     }
+  //   };
+  //   fetchPosts();
+  // }, []);
 
   useEffect(() => {
     const updateFilters = () => {
