@@ -6,10 +6,7 @@ type Props = {
   initialPosts: PostContent[];
 };
 
-//CSRでデータを取得するためのコンポーネント
-//初期値としてSSRで取得したデータを受け取る
-//useEffectを使ってクライアントサイドでデータを取得し、
-//状態を更新することで再レンダリングを行う
+// PostコンポーネントはSSRで取得したデータを表示するためのコンポーネント
 const Post = ({ initialPosts }: Props) => {
   // const [posts, setPosts] = useState<PostContent[]>(initialPosts);
 
