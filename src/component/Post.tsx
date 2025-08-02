@@ -21,21 +21,6 @@ const Post = ({ initialPosts }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const tasksPerPage = 10;
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const res = await fetch("/api/posts");
-  //       if (!res.ok) throw new Error("Failed to fetch posts");
-
-  //       const data = await res.json();
-  //       setPosts(data);
-  //     } catch (error) {
-  //       console.error("Error fetching posts:", error);
-  //     }
-  //   };
-  //   fetchPosts();
-  // }, []);
-
   useEffect(() => {
     const updateFilters = () => {
       // ローカルストレージから職業カテゴリを取得

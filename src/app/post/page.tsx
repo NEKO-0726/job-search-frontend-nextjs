@@ -35,17 +35,6 @@ const Page = () => {
       return;
     }
 
-    // try {
-    //   await apiClient.post("/post", {
-    //     salary: salaryText,
-    //     title: titleText,
-    //     jobCategory: jobCategoryText,
-    //   });
-    // } catch (error) {
-    //   console.error("Error posting job:", error);
-    //   alert("求人の投稿中にエラーが発生しました。");
-    // }
-
     try {
       const res = await fetch("/api/posts", {
         method: "POST",
