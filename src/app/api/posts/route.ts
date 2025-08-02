@@ -3,26 +3,21 @@ import { NextResponse } from "next/server";
 
 // GET: 全求人取得
 export async function GET() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/posts?select=*&order=id.desc`, {
-      headers: {
-        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY!}`,
-      },
-    });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/posts?select=*&order=id.desc`, {
+    headers: {
+      apikey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY!}`,
+    },
+  });
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Error fetching posts:", text);
-      return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
-    }
-
-    const posts = await res.json();
-    return NextResponse.json(posts);
-  } catch (err) {
-    console.error("Unexpected error:", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Supabase fetch error:", text);
+    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
   }
+
+  const posts = await res.json();
+  return NextResponse.json(posts);
 }
 
 // POST: 新しい求人を追加
