@@ -1,23 +1,27 @@
 // app/api/posts/route.ts
+import { Client } from "pg";
 import { NextResponse } from "next/server";
 
 // GET: 全求人取得
 export async function GET() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/posts?select=*&order=id.desc`, {
-    headers: {
-      apikey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY!}`,
-    },
+  const client = new Client({
+    connectionString: process.env.SUPABASE_DB_URL,
+    ssl: { rejectUnauthorized: false },
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    console.error("Supabase fetch error:", text);
-    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
-  }
+  try {
+    await client.connect();
 
-  const posts = await res.json();
-  return NextResponse.json(posts);
+    // 最新順で取得
+    const result = await client.query("SELECT * FROM posts ORDER BY id DESC");
+
+    return NextResponse.json(result.rows);
+  } catch (error) {
+    console.error("DB fetch error:", error);
+    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
+  } finally {
+    await client.end();
+  }
 }
 
 // POST: 新しい求人を追加
@@ -48,31 +52,19 @@ export async function POST(req: Request) {
   try {
     const { title, salary, jobCategory } = await req.json();
 
-    const newPost = {
-      title,
-      salary,
-      jobCategory,
-    };
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/posts`, {
-      method: "POST",
-      headers: {
-        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY!}`,
-        "Content-Type": "application/json",
-        Prefer: "return=representation", // 挿入後のデータを返す設定
-      },
-      body: JSON.stringify([newPost]), // Supabase RESTは配列で受け取る
+    const client = new Client({
+      connectionString: process.env.SUPABASE_DB_URL, // Supabaseの接続文字列
+      ssl: { rejectUnauthorized: false }, // SupabaseはSSL必須
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Error creating post:", text);
-      return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
-    }
+    await client.connect();
+    const result = await client.query(
+      'INSERT INTO posts (title, salary, "jobCategory") VALUES ($1, $2, $3) RETURNING *',
+      [title, salary, jobCategory]
+    );
+    await client.end();
 
-    const createdPosts = await res.json();
-    return NextResponse.json(createdPosts[0], { status: 201 }); // .single() 相当
+    return NextResponse.json(result.rows[0], { status: 201 });
   } catch (err) {
     console.error("Unexpected error:", err);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
