@@ -56,8 +56,6 @@ const Post = ({ initialPosts }: Props) => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  console.log("posts before filter:", posts);
-
   const filteredPosts = posts.filter((post) => {
     const matchCategory =
       selectedJobCategories.length === 0 ||
